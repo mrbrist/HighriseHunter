@@ -7,7 +7,7 @@ public class Scope : MonoBehaviour
     public GameObject scopeOverlay;
     public GameObject wepCam;
     public Camera cam;
-    public MouseLook ml;
+    private MouseLook ml;
 
     public float scopedFOV = 15f;
     private float normFOV;
@@ -17,6 +17,7 @@ public class Scope : MonoBehaviour
     private void Start()
     {
         normFOV = cam.fieldOfView;
+        ml = GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
