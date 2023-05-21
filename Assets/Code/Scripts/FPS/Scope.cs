@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scope : MonoBehaviour
 {
     public GameObject scopeOverlay;
+    public GameObject crosshair;
     public GameObject wepCam;
     public Camera cam;
     private MouseLook ml;
@@ -27,6 +28,7 @@ public class Scope : MonoBehaviour
         {
             isScoped = !isScoped;
             scopeOverlay.SetActive(isScoped);
+            crosshair.SetActive(!isScoped);
             ml.SetScoped(isScoped);
             wepCam.SetActive(!isScoped);
         }

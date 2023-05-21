@@ -9,6 +9,8 @@ public class GunController : MonoBehaviour
     public float shootForce = 100f;  // Force applied to the bullet
     public LayerMask targetLayers;  // Layers that the raycast should hit
 
+    public GameObject impactEffect;
+
     private float nextFireTime = 0f;
 
     // Update is called once per frame
@@ -28,10 +30,12 @@ public class GunController : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, Mathf.Infinity, targetLayers))
         {
             // Perform actions based on the hit object (e.g., damage, effects)
-            Destroy(hit.collider.gameObject);
+            //Destroy(hit.collider.gameObject);
         }
 
         // Spawn visual effects, play sound, etc.
         // Instantiate a bullet prefab or apply force to an existing projectile
+
+        Instantiate(impactEffect, hit.point, Quaternion.identity);
     }
 }
