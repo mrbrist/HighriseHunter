@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Scope : MonoBehaviour
 {
-    public GameObject scopeOverlay;
     public GameObject crosshair;
-    public GameObject wepCam;
-    public Camera cam;
-    private MouseLook ml;
-
+    //public Camera cam;
+    public Animator anim;
     public float scopedFOV = 15f;
-    private float normFOV;
 
+    private MouseLook ml;
+    private float normFOV;
     private bool isScoped = false;
 
     private void Start()
     {
-        normFOV = cam.fieldOfView;
+        //normFOV = cam.fieldOfView;
         ml = GetComponent<MouseLook>();
     }
 
@@ -27,18 +25,17 @@ public class Scope : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             isScoped = !isScoped;
-            scopeOverlay.SetActive(isScoped);
+            anim.SetBool("isScoped", isScoped);
             crosshair.SetActive(!isScoped);
             ml.SetScoped(isScoped);
-            wepCam.SetActive(!isScoped);
         }
 
-        if (isScoped)
+        /*if (isScoped)
         {
             cam.fieldOfView = scopedFOV;
         } else
         {
             cam.fieldOfView = normFOV;
-        }
+        }*/
     }
 }
