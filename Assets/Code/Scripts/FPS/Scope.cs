@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Scope : MonoBehaviour
 {
     public GameObject crosshair;
+    public GameObject distanceToTarget;
+    public Transform shootPoint;
     public Camera cam;
     public Animator anim;
 
@@ -41,6 +44,11 @@ public class Scope : MonoBehaviour
             anim.SetBool("isScoped", isScoped);
             crosshair.SetActive(!isScoped);
             ml.SetZoom(isScoped, sensitivityValues[currentFOVIndex]);
+            distanceToTarget.SetActive(isScoped);
         }
+
+        RaycastHit hit;
+        Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, Mathf.Infinity);
+        distanceToTarget.GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(hit.distance).ToString() + " m";
     }
 }
