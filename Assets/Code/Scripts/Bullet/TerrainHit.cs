@@ -9,13 +9,16 @@ public class TerrainHit : ShootableObject
     {
         GameObject particles = Instantiate(particlesPrefab, hit.point + (hit.normal * 0.05f), Quaternion.LookRotation(hit.normal), transform.root.parent);
         ParticleSystem ps = particles.GetComponent<ParticleSystem>();
-        MeshRenderer mr = GetComponent<MeshRenderer>();
 
-        if (ps && mr)
+        if (ps)
         {
-            ps.startColor = Color.black;
+            var main = ps.main;
+            main.startColor = Color.black;
         }
 
         Destroy(ps, 2f);
     }
+
+    public override void OnHit(RaycastHit hit)
+    {}
 }

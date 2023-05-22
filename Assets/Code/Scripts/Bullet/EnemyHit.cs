@@ -13,7 +13,22 @@ public class EnemyHit : ShootableObject
 
         if(ps)
         {
-            ps.startColor = Color.red;
+            var main = ps.main;
+            main.startColor = Color.red;
+        }
+
+        Destroy(ps, 2f);
+    }
+
+    public override void OnHit(RaycastHit hit)
+    {
+        GameObject particles = Instantiate(particlesPrefab, hit.point + (hit.normal * 0.05f), Quaternion.LookRotation(hit.normal), transform.root.parent);
+        ParticleSystem ps = particles.GetComponent<ParticleSystem>();
+
+        if (ps)
+        {
+            var main = ps.main;
+            main.startColor = Color.red;
         }
 
         Destroy(ps, 2f);
