@@ -31,8 +31,12 @@ public class MouseLook : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
-    public void SetZoom(float magnitude)
+    public void SetZoom(bool scoped, float magnitude)
     {
+        if (!scoped) { 
+            sensitivity = normalSensitivity;
+            return;
+        };
         sensitivity = normalSensitivity * magnitude;
     }
 }

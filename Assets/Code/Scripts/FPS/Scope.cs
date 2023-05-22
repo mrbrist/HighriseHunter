@@ -32,7 +32,7 @@ public class Scope : MonoBehaviour
             currentFOVIndex -= (int)Mathf.Sign(scrollInput);
             currentFOVIndex = Mathf.Clamp(currentFOVIndex, 0, fovValues.Length - 1);
             cam.fieldOfView = fovValues[currentFOVIndex];
-            ml.SetZoom(sensitivityValues[currentFOVIndex]);
+            ml.SetZoom(isScoped, sensitivityValues[currentFOVIndex]);
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -40,7 +40,7 @@ public class Scope : MonoBehaviour
             isScoped = !isScoped;
             anim.SetBool("isScoped", isScoped);
             crosshair.SetActive(!isScoped);
-            ml.SetZoom(sensitivityValues[currentFOVIndex]);
+            ml.SetZoom(isScoped, sensitivityValues[currentFOVIndex]);
         }
     }
 }

@@ -7,12 +7,18 @@ public class GunController : MonoBehaviour
     public Transform cam;
     public Animator anim;
     public float fireRate = 0.2f;  // Delay between each shot
-    public float shootForce = 100f;  // Force applied to the bullet
     public LayerMask targetLayers;  // Layers that the raycast should hit
 
     public GameObject impactEffect;
 
     private float nextFireTime = 0f;
+
+    [Space]
+    public Transform shootPoint;
+    public GameObject bulletPrefab;
+    public float bulletVelocity;
+    public float bulletLifetime;
+    public float gravity;
 
     // Update is called once per frame
     void Update()
@@ -27,18 +33,14 @@ public class GunController : MonoBehaviour
 
     void Fire()
     {
-        RaycastHit hit;
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
 
-        if (Physics.Raycast(cam.position, cam.forward, out hit, Mathf.Infinity, targetLayers))
+        if (bulletScript)
         {
-            // Perform actions based on the hit object (e.g., damage, effects)
-            //Destroy(hit.collider.gameObject);
+            bulletScript.Init(shootPoint, bulletVelocity, gravity);
         }
-
-        // Spawn visual effects, play sound, etc.
-        // Instantiate a bullet prefab or apply force to an existing projectile
-
-        Instantiate(impactEffect, hit.point, Quaternion.identity);
+        Destroy(bullet, bulletLifetime);
 
         // Stop shooting animation
         StartCoroutine(StopShooting());
