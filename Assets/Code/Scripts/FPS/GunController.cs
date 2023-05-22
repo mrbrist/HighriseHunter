@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Transform cam;
+    public Animator anim;
     public float fireRate = 0.2f;  // Delay between each shot
     public float shootForce = 100f;  // Force applied to the bullet
     public LayerMask targetLayers;  // Layers that the raycast should hit
@@ -18,6 +19,7 @@ public class GunController : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
         {
+            anim.SetBool("Shooting", true);
             Fire();
             nextFireTime = Time.time + fireRate;
         }
@@ -37,5 +39,14 @@ public class GunController : MonoBehaviour
         // Instantiate a bullet prefab or apply force to an existing projectile
 
         Instantiate(impactEffect, hit.point, Quaternion.identity);
+
+        // Stop shooting animation
+        StartCoroutine(StopShooting());
+    }
+
+    IEnumerator StopShooting()
+    {
+        yield return new WaitForSeconds(0.15f);
+        anim.SetBool("Shooting", false);
     }
 }

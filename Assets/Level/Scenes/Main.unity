@@ -2717,6 +2717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 330585546}
+  anim: {fileID: 1957732706}
   fireRate: 2
   shootForce: 100
   targetLayers:
