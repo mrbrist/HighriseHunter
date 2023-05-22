@@ -34,12 +34,7 @@ public class GunController : MonoBehaviour
     void Fire()
     {
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-
-        if (bulletScript)
-        {
-            bulletScript.Init(shootPoint, bulletVelocity, gravity);
-        }
+        bullet.GetComponent<Rigidbody>().AddForce(shootPoint.forward * bulletVelocity * 100, ForceMode.Force);
         Destroy(bullet, bulletLifetime);
 
         // Stop shooting animation

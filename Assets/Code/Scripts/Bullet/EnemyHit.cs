@@ -6,7 +6,7 @@ public class EnemyHit : ShootableObject
 {
     public GameObject particlesPrefab;
 
-    public override void OnHit(RaycastHit hit)
+    public override void OnHit(ContactPoint hit)
     {
         GameObject particles = Instantiate(particlesPrefab, hit.point + (hit.normal * 0.05f), Quaternion.LookRotation(hit.normal), transform.root.parent);
         ParticleSystem ps = particles.GetComponent<ParticleSystem>();
