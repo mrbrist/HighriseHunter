@@ -2702,8 +2702,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crosshair: {fileID: 1499441245}
+  cam: {fileID: 626233825}
   anim: {fileID: 1957732706}
-  scopedFOV: 15
+  fovValues:
+  - 3
+  - 15
+  - 30
+  sensitivityValues:
+  - 0.25
+  - 0.6
+  - 1
+  scrollSensitivity: 10
 --- !u!114 &1977908911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,6 +2747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 330585546}
+  sensitivity: 0
   normalSensitivity: 600
   scopedSensitivity: 150
 --- !u!1 &2104587049

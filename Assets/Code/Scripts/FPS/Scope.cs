@@ -5,37 +5,42 @@ using UnityEngine;
 public class Scope : MonoBehaviour
 {
     public GameObject crosshair;
-    //public Camera cam;
+    public Camera cam;
     public Animator anim;
-    public float scopedFOV = 15f;
+
+    public float[] fovValues;
+    public float[] sensitivityValues;
+    public float scrollSensitivity = 10f;
 
     private MouseLook ml;
-    private float normFOV;
     private bool isScoped = false;
+    private int currentFOVIndex = 0;
 
     private void Start()
     {
-        //normFOV = cam.fieldOfView;
         ml = GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+        // chnage scope zoom using scroll wheel input
+        if (scrollInput != 0f && isScoped)
+        {
+            currentFOVIndex -= (int)Mathf.Sign(scrollInput);
+            currentFOVIndex = Mathf.Clamp(currentFOVIndex, 0, fovValues.Length - 1);
+            cam.fieldOfView = fovValues[currentFOVIndex];
+            ml.SetZoom(sensitivityValues[currentFOVIndex]);
+        }
+
         if (Input.GetButtonDown("Fire2"))
         {
             isScoped = !isScoped;
             anim.SetBool("isScoped", isScoped);
             crosshair.SetActive(!isScoped);
-            ml.SetScoped(isScoped);
+            ml.SetZoom(sensitivityValues[currentFOVIndex]);
         }
-
-        /*if (isScoped)
-        {
-            cam.fieldOfView = scopedFOV;
-        } else
-        {
-            cam.fieldOfView = normFOV;
-        }*/
     }
 }

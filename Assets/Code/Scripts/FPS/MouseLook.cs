@@ -5,13 +5,11 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     public Transform cam;
+    public float normalSensitivity = 100f;
 
     private float sensitivity;
+    private float xRotation = 0f;
 
-    public float normalSensitivity = 100f;
-    public float scopedSensitivity = 50f;
-
-    float xRotation = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +31,8 @@ public class MouseLook : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
-    public void SetScoped(bool isScoped)
+    public void SetZoom(float magnitude)
     {
-        if (isScoped)
-        {
-            sensitivity = scopedSensitivity;
-        } else
-        {
-            sensitivity = normalSensitivity;
-        }
+        sensitivity = normalSensitivity * magnitude;
     }
 }
