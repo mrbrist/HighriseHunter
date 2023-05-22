@@ -11,13 +11,14 @@ public class Bullet : MonoBehaviour
         if (collision.collider.TryGetComponent(out so))
         {
             ContactPoint contact = collision.GetContact(0);
+            GetComponent<Rigidbody>().isKinematic = true;
             so.OnHit(contact);
 
             RaycastHit[] hits;
             hits = Physics.RaycastAll(contact.point, -contact.normal, Mathf.Infinity, collateralLayer);
             Debug.DrawRay(contact.point, -contact.normal, Color.red, 5f);
 
-            if (hits.Length >0) {
+            if (hits.Length > 0) {
                 foreach (var hit in hits)
                 {
                     ShootableObject soCollateral;
@@ -31,5 +32,6 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        Destroy(gameObject);
     }
 }
