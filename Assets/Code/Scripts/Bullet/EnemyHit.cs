@@ -9,20 +9,19 @@ public class EnemyHit : ShootableObject
     public override void OnHit(ContactPoint hit)
     {
         GameObject particles = Instantiate(particlesPrefab, hit.point + (hit.normal * 0.05f), Quaternion.LookRotation(hit.normal), transform.root.parent);
-        ParticleSystem ps = particles.GetComponent<ParticleSystem>();
 
-        if(ps)
-        {
-            var main = ps.main;
-            main.startColor = Color.red;
-        }
-
-        Destroy(ps, 2f);
+        SpawnParticles(particles);
     }
 
     public override void OnHit(RaycastHit hit)
     {
         GameObject particles = Instantiate(particlesPrefab, hit.point + (hit.normal * 0.05f), Quaternion.LookRotation(hit.normal), transform.root.parent);
+
+        SpawnParticles(particles);
+    }
+
+    void SpawnParticles (GameObject particles)
+    {
         ParticleSystem ps = particles.GetComponent<ParticleSystem>();
 
         if (ps)
@@ -31,6 +30,6 @@ public class EnemyHit : ShootableObject
             main.startColor = Color.red;
         }
 
-        Destroy(ps, 2f);
+        Destroy(particles, 2f);
     }
 }

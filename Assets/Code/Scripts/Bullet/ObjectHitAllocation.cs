@@ -34,7 +34,9 @@ public class ObjectHitAllocation : MonoBehaviour
 
         foreach (var e in es)
         {
-            e.AddComponent<EnemyHit>().particlesPrefab = particlePrefab;
+            EnemyHit eh = e.AddComponent<EnemyHit>();
+            eh.particlesPrefab = particlePrefab;
+
         }
 
         foreach (var t in ts)

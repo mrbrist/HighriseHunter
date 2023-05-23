@@ -16,7 +16,7 @@ public class TerrainHit : ShootableObject
             main.startColor = Color.black;
         }
 
-        Destroy(ps, 2f);
+        Destroy(particles, 2f);
     }
 
     public override void OnHit(RaycastHit hit)
