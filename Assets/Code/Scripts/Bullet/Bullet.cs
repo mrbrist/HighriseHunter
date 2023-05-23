@@ -5,6 +5,20 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public LayerMask collateralLayer;
+
+    private Rigidbody rb;
+    private Vector3 velocity;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        velocity = -rb.velocity;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         ShootableObject so;
@@ -15,8 +29,8 @@ public class Bullet : MonoBehaviour
             so.OnHit(contact);
 
             RaycastHit[] hits;
-            hits = Physics.RaycastAll(contact.point, -contact.normal, Mathf.Infinity, collateralLayer);
-            Debug.DrawRay(contact.point, -contact.normal, Color.red, 5f);
+            hits = Physics.RaycastAll(contact.point, contact.normal - velocity, Mathf.Infinity, collateralLayer);
+            Debug.DrawRay(contact.point, contact.normal - velocity, Color.red, 5f);
 
             if (hits.Length > 0) {
                 foreach (var hit in hits)
